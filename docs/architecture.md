@@ -43,21 +43,22 @@ flowchart LR
 
 ## Decisões de implementação
 
-- **Camada de apresentação:** componentes React consomem a API pelo cliente compartilhado em `src/api/client.ts`. Um componente comum apresenta estados acessíveis de carregamento, erro e vazio; cada capacidade renderiza seus dados em lista ou tabela.
-- **Camada de lógica:** rotas Express delegam aos serviços, que validam entradas e referências antes de persistir. Entradas malformadas retornam `400`; referências inexistentes retornam `404`.
-- **Camada de dados:** esquemas Mongoose exigem os campos essenciais; minutos devem ser positivos e pontos não negativos. O seed permanece baseado em upserts idempotentes e reconcilia a equipe anterior da pessoa de demonstração.
-- **Registro de atividades:** validar IDs como strings antes de consultar o MongoDB e confirmar a existência da pessoa e da equipe. Calcular pontos com base nos minutos e registrar `occurredAt` no momento da criação.
-- **Gerenciamento de equipes:** exigir nome e mascote, validar todos os IDs dos integrantes e manter a associação pessoa-equipe sincronizada ao criar a equipe.
-- **Placar:** agregar pontos por equipe, incluir equipes sem atividades com zero pontos e ordenar por total decrescente, atribuindo posições a partir de 1.
-- **Sugestões de treino:** localizar a pessoa pelo e-mail, considerar até cinco atividades recentes, mapear corrida, ciclismo e caminhada para resistência e priorizar treinos compatíveis com a meta; incluir um motivo em cada sugestão.
+Registre seu plano aqui antes de editar o código.
+
+- Decisão da camada de apresentação:
+- Decisão da camada de lógica:
+- Decisão da camada de dados:
+- Abordagem para registro de atividades:
+- Abordagem para gerenciamento de equipes:
+- Abordagem para o placar:
+- Abordagem para sugestões de treino:
 
 ## Plano de testes
 
-- **Falhas iniciais:** `npm test --prefix octofit-tracker/backend` teve 8 falhas e 1 aprovação: validações obrigatórias ausentes nos modelos, operações de atividades/equipes ainda retornando `501`, placar vazio e foco de sugestão incorreto. `npm test --prefix octofit-tracker/frontend` teve 15 falhas porque as telas ainda exibiam o estado de implementação pendente em vez de buscar e apresentar os dados e estados da API.
-- **Dados:** `npm run test:data --prefix octofit-tracker/backend` — 5 testes aprovados, incluindo validação dos modelos e seed idempotente.
-- **API:** `npm run test:api --prefix octofit-tracker/backend` — 4 testes aprovados, cobrindo atividades, equipes, placar e sugestões.
-- **Backend completo:** `npm test --prefix octofit-tracker/backend` — 9 testes aprovados.
-- **Frontend:** `npm test --prefix octofit-tracker/frontend` — 15 testes aprovados, cobrindo conteúdo e estados de carregamento, vazio e erro.
-- **Compilação do backend:** `npm run build --prefix octofit-tracker/backend` — `tsc --noEmit` concluído sem erros.
-- **Build do frontend:** `npm run build --prefix octofit-tracker/frontend` — verificação TypeScript e build Vite concluídos sem erros.
-- **Falha transitória durante a implementação:** a primeira execução da suíte do frontend não transformou o componente por uma exportação duplicada de `CapabilityCard`; o placeholder remanescente foi removido e a suíte passou na execução seguinte.
+Registre os comandos executados e o significado de cada falha.
+
+- Testes da camada de dados: `npm run test:data --prefix octofit-tracker/backend`
+- Testes da API: `npm run test:api --prefix octofit-tracker/backend`
+- Testes do frontend: `npm test --prefix octofit-tracker/frontend`
+- Compilação do backend: `npm run build --prefix octofit-tracker/backend`
+- Compilação do frontend: `npm run build --prefix octofit-tracker/frontend`
