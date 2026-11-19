@@ -1,7 +1,10 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
 
 type WorkoutSuggestion = { title: string; focus: string; minutes: number; difficulty: string; reason: string };
 type WorkoutResponse = { suggestions: WorkoutSuggestion[] };
+
+const loadWorkouts = (path: string) => getJson<WorkoutResponse>(path);
 
 export default function Workouts() {
   const userEmail = 'mona@example.com';
@@ -10,6 +13,7 @@ export default function Workouts() {
       title="Sugestões de treino"
       description="Recomendações baseadas nas metas e atividades recentes."
       path={`/api/workouts/suggestions/${encodeURIComponent(userEmail)}`}
+      load={loadWorkouts}
       emptyText="Nenhuma sugestão de treino disponível."
       hasData={({ suggestions }) => suggestions.length > 0}
       render={({ suggestions }) => (

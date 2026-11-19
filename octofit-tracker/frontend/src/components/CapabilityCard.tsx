@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { getJson } from '../api/client.js';
 
 type Props<T> = {
   title: string;
   description: string;
   path: string;
+  load(path: string): Promise<T>;
   emptyText: string;
   hasData(data: T): boolean;
   render(data: T): ReactNode;
@@ -15,13 +15,13 @@ type ResourceState<T> =
   | { status: 'error' }
   | { status: 'success'; data: T };
 
-export function CapabilityCard<T>({ title, description, path, emptyText, hasData, render }: Props<T>) {
+export function CapabilityCard<T>({ title, description, path, load, emptyText, hasData, render }: Props<T>) {
   const [state, setState] = useState<ResourceState<T>>({ status: 'loading' });
 
   useEffect(() => {
     let active = true;
     setState({ status: 'loading' });
-    getJson<T>(path)
+    load(path)
       .then((data) => {
         if (active) setState({ status: 'success', data });
       })
@@ -31,7 +31,7 @@ export function CapabilityCard<T>({ title, description, path, emptyText, hasData
     return () => {
       active = false;
     };
-  }, [path]);
+  }, [path, load]);
 
   return (
     <section className="card h-100" aria-labelledby="capability-title">

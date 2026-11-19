@@ -1,7 +1,10 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
 
 type LeaderboardEntry = { teamName: string; totalPoints: number; rank: number };
 type LeaderboardResponse = { leaderboard: LeaderboardEntry[] };
+
+const loadLeaderboard = (path: string) => getJson<LeaderboardResponse>(path);
 
 export default function Leaderboard() {
   return (
@@ -9,6 +12,7 @@ export default function Leaderboard() {
       title="Placar"
       description="Compare a pontuação total das equipes."
       path="/api/leaderboard"
+      load={loadLeaderboard}
       emptyText="Sem pontuação registrada."
       hasData={({ leaderboard }) => leaderboard.length > 0}
       render={({ leaderboard }) => (

@@ -1,7 +1,10 @@
 import { CapabilityCard } from './CapabilityCard.js';
+import { getJson } from '../api/client.js';
 
 type Team = { name: string; members: string[] };
 type TeamResponse = { teams: Team[] };
+
+const loadTeams = (path: string) => getJson<TeamResponse>(path);
 
 export default function Teams() {
   return (
@@ -9,6 +12,7 @@ export default function Teams() {
       title="Equipes"
       description="Consulte as equipes e seus integrantes."
       path="/api/teams"
+      load={loadTeams}
       emptyText="Sem equipes cadastradas."
       hasData={({ teams }) => teams.length > 0}
       render={({ teams }) => (
